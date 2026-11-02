@@ -19,12 +19,20 @@ New-Item build -ItemType Directory -Force | Out-Null
 
 # Etapa 1: ambiente do host (vai para o Quadro 1 e a folha de identificação)
 $os = Get-CimInstance Win32_OperatingSystem
+$cs = Get-CimInstance Win32_ComputerSystem
+$cpu = (Get-CimInstance Win32_Processor | Select-Object -First 1).Name
+$commit = $null
+if (Get-Command git -ErrorAction SilentlyContinue) { $commit = (& git rev-parse --short HEAD 2>$null) }
 $vs = $null
 if (Get-Command code -ErrorAction SilentlyContinue) { $vs = (& code --version 2>$null | Select-Object -First 1) }
 [ordered]@{
     windows = ("$($os.Caption) $($os.Version)" -replace '^Microsoft ', '').Trim()
     vscode  = $vs
     data    = (Get-Date -Format 'yyyy-MM-dd')
+    equipamento = ("$($cs.Manufacturer) $($cs.Model)").Trim()
+    cpu     = if ($cpu) { $cpu.Trim() } else { $null }
+    ram_gb  = [math]::Round($cs.TotalPhysicalMemory / 1GB)
+    commit  = $commit
 } | ConvertTo-Json | Set-Content 'build\ambiente_host.json' -Encoding UTF8
 
 # Etapa 2: execução do notebook (as saídas ficam gravadas no próprio .ipynb, visíveis no VS Code)

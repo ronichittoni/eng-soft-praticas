@@ -21,6 +21,10 @@ const pyVer = AMB.Python || '3.x';
 const pyMinor = pyVer.split('.').slice(0, 2).join('.');
 const soNome = AMB.windows || AMB.Sistema || 'Windows';
 const vscode = AMB.vscode ? `Visual Studio Code ${AMB.vscode}` : 'Visual Studio Code';
+const equip = [AMB.equipamento, AMB.cpu, AMB.ram_gb ? `${AMB.ram_gb} GB de RAM` : null].filter(Boolean).join(', ');
+const REPO_URL = 'https://github.com/ronichittoni/eng-soft-praticas';
+const PASTA = 'U3_A2_redes_neurais';
+const repoLinha = `${REPO_URL}, pasta ${PASTA}${AMB.commit ? `, commit ${AMB.commit}` : ''}`;
 
 // ------------------------------- CONFIG --------------------------------------
 const CONFIG = {
@@ -36,7 +40,7 @@ const CONFIG = {
   aula: 'A2 – Redes Neurais Artificiais',
   experimento: 'Classificação simples com porta lógica (rede neural para a função XOR)',
   dataRealizacao: dataExtenso,
-  ambienteResumo: `${vscode} com extensão Jupyter · Python ${pyVer} em ${soNome} · NumPy ${AMB.NumPy || ''} · Matplotlib ${AMB.Matplotlib || ''}`,
+  ambienteResumo: `Notebook pessoal do autor com ${soNome} · ${vscode} com extensão Jupyter · Python ${pyVer} · NumPy ${AMB.NumPy || ''} · Matplotlib ${AMB.Matplotlib || ''}`,
   cidade: 'RIBEIRÃO PRETO – SP',
   ano: String(hoje.getFullYear()),
   saida: path.join(RAIZ, 'saida', 'Relatorio_Aula_Pratica_Redes_Neurais_XOR_U3A2_Roni_Chittoni.docx'),
@@ -132,6 +136,7 @@ const folhaRosto = [
       linha2('Experimento', CONFIG.experimento),
       linha2('Data de realização', CONFIG.dataRealizacao),
       linha2('Ambiente de execução', CONFIG.ambienteResumo),
+      linha2('Repositório', repoLinha),
     ],
   }),
   new Paragraph({ spacing: { before: 2000, after: 0, line: 360 }, indent: { left: 4200 }, alignment: AlignmentType.JUSTIFIED,
@@ -174,17 +179,19 @@ const metodos = [
   new Table({
     width: { size: CONTENT_W, type: WidthType.DXA }, columnWidths: [2700, 6371],
     rows: [
+      linha2k('Equipamento', `Notebook pessoal do autor${equip ? ` (${equip})` : ''}`),
       linha2k('Sistema operacional', soNome),
       linha2k('IDE', `${vscode}, extensões Python e Jupyter da Microsoft`),
       linha2k('Linguagem', `Python ${pyVer}, em ambiente virtual dedicado (.venv)`),
       linha2k('Bibliotecas', `NumPy ${AMB.NumPy || ''} (álgebra matricial e geração pseudoaleatória); Matplotlib ${AMB.Matplotlib || ''} (gráficos, backend inline do Jupyter)`),
       linha2k('Notebook', 'U3_A2_Redes_Neurais_XOR.ipynb, 16 células de código e 4 de texto, executadas em sequência no mesmo kernel'),
       linha2k('Registro de evidências', 'Saídas de texto e figuras PNG extraídas do próprio .ipynb executado, sem recaptura de tela'),
+      linha2k('Repositório', repoLinha),
       linha2('Solução digital do roteiro', 'Google Colab (https://colab.google/)'),
     ],
   }),
   fonte(`Fonte: elaborado pelo autor (${CONFIG.ano}).`),
-  P(`O roteiro indica o Google Colab (GOOGLE, ${CONFIG.ano}) como solução digital. A execução registrada neste relatório ocorreu no Visual Studio Code (MICROSOFT, ${CONFIG.ano}), com a extensão Jupyter, sobre um ambiente virtual Python local (PYTHON SOFTWARE FOUNDATION, ${CONFIG.ano}) com as mesmas bibliotecas que o Colab disponibiliza (NumPy e Matplotlib), o que foi adotado como decisão metodológica por três razões: o arquivo .ipynb é o mesmo formato que o Colab abre, sem conversão, e não depende de nada além das duas bibliotecas; a inicialização dos pesos usa semente fixa, de modo que o treinamento é reproduzível em qualquer ambiente, inclusive no Colab, com diferenças apenas na última casa decimal; e as transcrições e figuras deste relatório foram extraídas diretamente das saídas gravadas no notebook executado, o que lhes dá fidelidade integral.`),
+  P(`O roteiro indica o Google Colab (GOOGLE, ${CONFIG.ano}) como solução digital. A execução registrada neste relatório ocorreu no notebook pessoal do autor, com ${soNome}, no Visual Studio Code (MICROSOFT, ${CONFIG.ano}), com a extensão Jupyter, sobre um ambiente virtual Python local (PYTHON SOFTWARE FOUNDATION, ${CONFIG.ano}) com as mesmas bibliotecas que o Colab disponibiliza (NumPy e Matplotlib), o que foi adotado como decisão metodológica por três razões: o arquivo .ipynb é o mesmo formato que o Colab abre, sem conversão, e não depende de nada além das duas bibliotecas; a inicialização dos pesos usa semente fixa, de modo que o treinamento é reproduzível em qualquer ambiente, inclusive no Colab, com diferenças apenas na última casa decimal; e as transcrições e figuras deste relatório foram extraídas diretamente das saídas gravadas no notebook executado, o que lhes dá fidelidade integral. O notebook, os scripts de execução e o gerador deste relatório estão versionados no GitHub (CHITTONI, ${CONFIG.ano}), na pasta ${PASTA} do repositório ${REPO_URL}, o que permite reproduzir a execução e conferir cada evidência.`),
   H2('2.2 Estratégia'),
   P('A prática foi conduzida em três fases. Na primeira, o roteiro foi lido na íntegra e confrontado consigo mesmo: título, objetivos, questões, checklist e seção de resultados descrevem uma rede neural para XOR, mas o código das seis células implementa um sistema de lógica fuzzy. Essa contradição foi tratada como a Ocorrência 1 (Seção 3.1) e definiu o desenho do experimento em duas partes. Na segunda fase, a Parte A, o código do roteiro foi reproduzido exatamente como entregue e executado, para que o procedimento literal ficasse registrado. Na terceira fase, a Parte B, a rede neural que o roteiro avalia foi implementada do zero, sem frameworks de aprendizado de máquina, para que cada etapa (propagação frontal, cálculo do erro, retropropagação, atualização dos pesos) ficasse exposta e verificável.'),
   P('A validação da Parte B foi feita em três níveis crescentes de exigência: as quatro entradas da tabela-verdade, que a rede precisa classificar com 100% de acurácia; uma contraprova com um único neurônio, que precisa falhar em XOR e acertar AND e OR, confirmando a necessidade da camada oculta; e um conjunto de 200 amostras sintéticas com ruído, que mede se a fronteira aprendida tem margem e não apenas memoriza os quatro pontos. Todas as sementes pseudoaleatórias foram fixadas (42 para os pesos e 7 para o ruído), de modo que o experimento é reproduzível.'),
@@ -343,6 +350,7 @@ const referencias = [
   new Paragraph({ children: [new PageBreak()] }),
   H1('REFERÊNCIAS'),
   ref('CENTRO UNIVERSITÁRIO ANHANGUERA PITÁGORAS UNOPAR. Roteiro de aula prática: Fundamentos da Inteligência Artificial. Unidade 3: Introdução ao Deep Learning. Aula 2: Redes Neurais Artificiais. [S. l.: s. n.], [2026]. Material didático da disciplina, distribuído no AVA.'),
+  ref(`CHITTONI, Roni. eng-soft-praticas: aulas práticas de Engenharia de Software. [S. l.]: GitHub, ${CONFIG.ano}. Disponível em: ${REPO_URL}. Acesso em: ${dataAcesso}.`),
   ref(`GOOGLE. Colaboratory. Disponível em: https://colab.google/. Acesso em: ${dataAcesso}.`),
   ref('HARRIS, Charles R. et al. Array programming with NumPy. Nature, London, v. 585, p. 357-362, 2020. DOI: https://doi.org/10.1038/s41586-020-2649-2.'),
   ref('HAYKIN, Simon. Redes neurais: princípios e prática. Tradução: Paulo Martins Engel. 2. ed. Porto Alegre: Bookman, 2001.'),
