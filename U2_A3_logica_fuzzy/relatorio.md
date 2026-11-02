@@ -230,21 +230,7 @@ As duas ocorrências, comentários divergentes do código e uma questão com pre
 
 # REFERÊNCIAS
 
-CENTRO UNIVERSITÁRIO ANHANGUERA PITÁGORAS UNOPAR. Roteiro de aula prática: Fundamentos da Inteligência Artificial. Unidade 2: Métodos e Aplicações de Inteligência Artificial. Aula 3: Soluções em Inteligência Artificial. [S. l.: s. n.], [2026]. Material didático da disciplina, distribuído no AVA.
-
-CHITTONI, Roni. eng-soft-praticas: aulas práticas de Engenharia de Software. [S. l.]: GitHub, {ano}. Disponível em: {repositorio}. Acesso em: {data_acesso}.
-
-GOOGLE. Colaboratory. Disponível em: https://colab.google/. Acesso em: {data_acesso}.
-
-HARRIS, Charles R. et al. Array programming with NumPy. Nature, London, v. 585, p. 357-362, 2020. DOI: https://doi.org/10.1038/s41586-020-2649-2.
-
-HUNTER, John D. Matplotlib: a 2D graphics environment. Computing in Science & Engineering, [s. l.], v. 9, n. 3, p. 90-95, 2007. DOI: https://doi.org/10.1109/MCSE.2007.55.
-
 MAMDANI, Ebrahim H.; ASSILIAN, Sedrak. An experiment in linguistic synthesis with a fuzzy logic controller. International Journal of Man-Machine Studies, [s. l.], v. 7, n. 1, p. 1-13, 1975. DOI: https://doi.org/10.1016/S0020-7373(75)80002-2.
-
-MICROSOFT. Visual Studio Code: Jupyter Notebooks in VS Code. Disponível em: https://code.visualstudio.com/docs/datascience/jupyter-notebooks. Acesso em: {data_acesso}.
-
-PYTHON SOFTWARE FOUNDATION. Python {python_curto} documentation. Disponível em: https://docs.python.org/{python_curto}/. Acesso em: {data_acesso}.
 
 RUSSELL, Stuart J.; NORVIG, Peter. Inteligência artificial: uma abordagem moderna. 4. ed. Rio de Janeiro: LTC, 2022. E-book. ISBN 978-85-951-5949-5.
 
