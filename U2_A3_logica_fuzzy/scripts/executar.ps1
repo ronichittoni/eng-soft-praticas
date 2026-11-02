@@ -24,7 +24,9 @@ $cpu = (Get-CimInstance Win32_Processor | Select-Object -First 1).Name
 $commit = $null
 if (Get-Command git -ErrorAction SilentlyContinue) { $commit = (& git rev-parse --short HEAD 2>$null) }
 $vs = $null
-if (Get-Command code -ErrorAction SilentlyContinue) { $vs = (& code --version 2>$null | Select-Object -First 1) }
+if ($env:TERM_PROGRAM -eq 'vscode' -and $env:TERM_PROGRAM_VERSION) { $vs = $env:TERM_PROGRAM_VERSION }
+elseif (Get-Command code -ErrorAction SilentlyContinue) { $vs = (& code --version 2>$null | Select-Object -First 1) }
+if (-not $vs) { $vs = $null }
 [ordered]@{
     windows = ("$($os.Caption) $($os.Version)" -replace '^Microsoft ', '').Trim()
     vscode  = $vs
