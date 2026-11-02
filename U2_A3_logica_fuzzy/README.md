@@ -22,6 +22,19 @@ Depois de instalar Python ou Node, feche e reabra o VS Code para o PATH ser atua
    - **Interativo:** abra `notebook\U2_A3_Avaliacao_Qualidade_Atendimento.ipynb`, clique em **Select Kernel** > "Python (.venv U2A3)", **Run All**, salve (`Ctrl+S`) e rode a tarefa **3. Só evidências + relatório**.
 4. Resultado em `saida\`: `Relatorio_Aula_Pratica_Logica_Fuzzy_U2A3_Roni_Chittoni.docx` e `.pdf`. Evidências brutas em `evidencias\` (um `.txt` e um `.png` por célula).
 
+## Como editar o texto do relatório
+
+Todo o texto fica em `relatorio.md`, nesta pasta. O `scripts\gerar_relatorio.js` só cuida da formatação ABNT e não precisa ser aberto.
+
+1. Abra `relatorio.md` no VS Code (`Ctrl+Shift+V` mostra a pré-visualização ao lado) ou no Obsidian.
+2. Edite: `#`, `##` e `###` para títulos; parágrafos separados por linha em branco; `**negrito**` e `*itálico*`.
+3. Os marcadores `[[figura f3]]`, `[[codigo B3]]`, `[[saida B3]]`, `[[quadro ambiente]]` etc. inserem figuras, código, saídas e tabelas; podem ser movidos, mas não renomeados.
+4. As lacunas `{ano}`, `{sistema}`, `{repositorio}` etc. são preenchidas na geração.
+5. Rode a tarefa **3. Só evidências + relatório** (segundos) e confira o PDF em `saida\`.
+6. Faça commit no GitHub Desktop.
+
+Se um marcador, lacuna ou negrito estiver errado, a geração para e informa a linha do `relatorio.md`. Números citados no texto devem continuar iguais aos da execução: a conferência automática verifica a execução, não o texto.
+
 ## Salvaguardas
 
 - **Célula com erro ou figura ausente:** o pipeline para antes do relatório e aponta o arquivo em `evidencias\`. O erro deve ser documentado como Ocorrência, não escondido.
