@@ -2,7 +2,7 @@
 
 Centro Universitário Anhanguera Pitágoras Unopar (EAD). Aluno: Roni Chittoni.
 
-Cada subpasta é um projeto independente: notebook da aula, pipeline de execução e gerador do relatório ABNT (.docx + PDF). Abra no VS Code a subpasta da aula, não esta raiz.
+Cada subpasta é um projeto independente: notebook da aula, pipeline de execução e gerador do relatório ABNT (.docx + PDF).
 
 | Pasta | Disciplina | Aula |
 |---|---|---|
