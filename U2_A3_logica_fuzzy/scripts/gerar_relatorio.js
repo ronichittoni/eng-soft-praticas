@@ -21,6 +21,10 @@ const pyVer = AMB.Python || '3.x';
 const pyMinor = pyVer.split('.').slice(0, 2).join('.');
 const soNome = AMB.windows || AMB.Sistema || 'Windows';
 const vscode = AMB.vscode ? `Visual Studio Code ${AMB.vscode}` : 'Visual Studio Code';
+const equip = [AMB.equipamento, AMB.cpu, AMB.ram_gb ? `${AMB.ram_gb} GB de RAM` : null].filter(Boolean).join(', ');
+const REPO_URL = 'https://github.com/ronichittoni/eng-soft-praticas';
+const PASTA = 'U2_A3_logica_fuzzy';
+const repoLinha = `${REPO_URL}, pasta ${PASTA}${AMB.commit ? `, commit ${AMB.commit}` : ''}`;
 
 // ------------------------------- CONFIG --------------------------------------
 const CONFIG = {
@@ -36,7 +40,7 @@ const CONFIG = {
   aula: 'A3 – Soluções em Inteligência Artificial',
   experimento: 'Sistema de Avaliação de Qualidade de Atendimento (lógica nebulosa)',
   dataRealizacao: dataExtenso,
-  ambienteResumo: `${vscode} com extensão Jupyter · Python ${pyVer} em ${soNome} · NumPy ${AMB.NumPy || ''} · Matplotlib ${AMB.Matplotlib || ''}`,
+  ambienteResumo: `Notebook pessoal do autor com ${soNome} · ${vscode} com extensão Jupyter · Python ${pyVer} · NumPy ${AMB.NumPy || ''} · Matplotlib ${AMB.Matplotlib || ''}`,
   cidade: 'RIBEIRÃO PRETO – SP',
   ano: String(hoje.getFullYear()),
   saida: path.join(RAIZ, 'saida', 'Relatorio_Aula_Pratica_Logica_Fuzzy_U2A3_Roni_Chittoni.docx'),
@@ -130,6 +134,7 @@ const folhaRosto = [
       linha2('Experimento', CONFIG.experimento),
       linha2('Data de realização', CONFIG.dataRealizacao),
       linha2('Ambiente de execução', CONFIG.ambienteResumo),
+      linha2('Repositório', repoLinha),
     ],
   }),
   new Paragraph({ spacing: { before: 2000, after: 0, line: 360 }, indent: { left: 4200 }, alignment: AlignmentType.JUSTIFIED,
@@ -168,17 +173,19 @@ const metodos = [
   new Table({
     width: { size: CONTENT_W, type: WidthType.DXA }, columnWidths: [2700, 6371],
     rows: [
+      linha2k('Equipamento', `Notebook pessoal do autor${equip ? ` (${equip})` : ''}`),
       linha2k('Sistema operacional', soNome),
       linha2k('IDE', `${vscode}, extensões Python e Jupyter da Microsoft`),
       linha2k('Linguagem', `Python ${pyVer}, em ambiente virtual dedicado (.venv)`),
       linha2k('Bibliotecas', `NumPy ${AMB.NumPy || ''} (grades de avaliação); Matplotlib ${AMB.Matplotlib || ''} (gráficos, backend inline do Jupyter)`),
       linha2k('Notebook', 'U2_A3_Avaliacao_Qualidade_Atendimento.ipynb (nome do roteiro: Avaliação de Qualidade de Atendimento), 12 células de código, executadas em sequência no mesmo kernel'),
       linha2k('Registro de evidências', 'Saídas de texto e figuras PNG extraídas do próprio .ipynb executado, sem recaptura de tela'),
+      linha2k('Repositório', repoLinha),
       linha2('Solução digital do roteiro', 'Google Colab (https://colab.google/)'),
     ],
   }),
   fonte(`Fonte: elaborado pelo autor (${CONFIG.ano}).`),
-  P(`O roteiro indica o Google Colab (GOOGLE, ${CONFIG.ano}) como solução digital. A execução registrada neste relatório ocorreu no Visual Studio Code (MICROSOFT, ${CONFIG.ano}), com a extensão Jupyter, sobre um ambiente virtual Python local (PYTHON SOFTWARE FOUNDATION, ${CONFIG.ano}) com as mesmas bibliotecas que o Colab disponibiliza, o que foi adotado como decisão metodológica por três razões: o arquivo .ipynb é o mesmo formato que o Colab abre, sem conversão; o código do roteiro é determinístico, sem qualquer componente aleatório, de modo que a saída é idêntica em qualquer ambiente com NumPy e Matplotlib; e as transcrições e figuras deste relatório foram extraídas diretamente das saídas gravadas no notebook executado, o que lhes dá fidelidade integral.`),
+  P(`O roteiro indica o Google Colab (GOOGLE, ${CONFIG.ano}) como solução digital. A execução registrada neste relatório ocorreu no notebook pessoal do autor, com ${soNome}, no Visual Studio Code (MICROSOFT, ${CONFIG.ano}), com a extensão Jupyter, sobre um ambiente virtual Python local (PYTHON SOFTWARE FOUNDATION, ${CONFIG.ano}) com as mesmas bibliotecas que o Colab disponibiliza, o que foi adotado como decisão metodológica por três razões: o arquivo .ipynb é o mesmo formato que o Colab abre, sem conversão; o código do roteiro é determinístico, sem qualquer componente aleatório, de modo que a saída é idêntica em qualquer ambiente com NumPy e Matplotlib; e as transcrições e figuras deste relatório foram extraídas diretamente das saídas gravadas no notebook executado, o que lhes dá fidelidade integral. O notebook, os scripts de execução e o gerador deste relatório estão versionados no GitHub (CHITTONI, ${CONFIG.ano}), na pasta ${PASTA} do repositório ${REPO_URL}, o que permite reproduzir a execução e conferir cada evidência.`),
   H2('2.2 Estratégia'),
   P('A prática foi conduzida em duas partes. Na Parte A, as seis células do roteiro foram reproduzidas exatamente como entregues e executadas, precedidas apenas de uma célula de registro do ambiente. Na Parte B, foram acrescentadas cinco células de análise, porque várias questões do enunciado pedem resultados que o código fornecido não produz: o que acontece com sobreposição zero entre pertinências adjacentes (Questão 1), como um sistema binário trataria 20 minutos de espera (Questão 6), como modificar as pertinências para clientes menos tolerantes e qual nova regra melhoraria o sistema (Questão 7). Em vez de responder a essas perguntas apenas em tese, cada uma foi transformada em experimento, com tabela e figura próprias.'),
   P('Para isso, a função de inferência do roteiro foi reescrita na célula B2 em forma genérica (avaliar_generico), que recebe as seis funções de pertinência como parâmetros e aceita a regra 6 opcional, preservando as cinco regras e a defuzzificação originais. A equivalência entre a função genérica e a do roteiro foi verificada nos quatro casos de teste (Seção 3.2.5): com as pertinências originais e sem a regra extra, as duas produzem exatamente os mesmos valores.'),
@@ -337,6 +344,7 @@ const referencias = [
   new Paragraph({ children: [new PageBreak()] }),
   H1('REFERÊNCIAS'),
   ref('CENTRO UNIVERSITÁRIO ANHANGUERA PITÁGORAS UNOPAR. Roteiro de aula prática: Fundamentos da Inteligência Artificial. Unidade 2: Métodos e Aplicações de Inteligência Artificial. Aula 3: Soluções em Inteligência Artificial. [S. l.: s. n.], [2026]. Material didático da disciplina, distribuído no AVA.'),
+  ref(`CHITTONI, Roni. eng-soft-praticas: aulas práticas de Engenharia de Software. [S. l.]: GitHub, ${CONFIG.ano}. Disponível em: ${REPO_URL}. Acesso em: ${dataAcesso}.`),
   ref(`GOOGLE. Colaboratory. Disponível em: https://colab.google/. Acesso em: ${dataAcesso}.`),
   ref('HARRIS, Charles R. et al. Array programming with NumPy. Nature, London, v. 585, p. 357-362, 2020. DOI: https://doi.org/10.1038/s41586-020-2649-2.'),
   ref('HUNTER, John D. Matplotlib: a 2D graphics environment. Computing in Science & Engineering, [s. l.], v. 9, n. 3, p. 90-95, 2007. DOI: https://doi.org/10.1109/MCSE.2007.55.'),

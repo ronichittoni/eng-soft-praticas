@@ -1,0 +1,8 @@
+{
+  "name": "relatorio-u2a3",
+  "private": true,
+  "description": "Gerador do relatório de aula prática U2 A3 (Fundamentos da IA)",
+  "dependencies": {
+    "docx": "9.8.1"
+  }
+}

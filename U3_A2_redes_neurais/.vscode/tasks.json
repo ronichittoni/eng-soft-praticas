@@ -1,0 +1,30 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "1. Preparar ambiente (.venv + docx)",
+      "type": "shell",
+      "command": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts\\setup.ps1",
+      "problemMatcher": []
+    },
+    {
+      "label": "2. Pipeline completo (executar notebook + evidências + relatório + PDF)",
+      "type": "shell",
+      "command": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts\\executar.ps1",
+      "group": { "kind": "build", "isDefault": true },
+      "problemMatcher": []
+    },
+    {
+      "label": "3. Só evidências + relatório (notebook já rodado no VS Code)",
+      "type": "shell",
+      "command": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts\\executar.ps1 -PularExecucao",
+      "problemMatcher": []
+    },
+    {
+      "label": "4. Só executar o notebook",
+      "type": "shell",
+      "command": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts\\executar.ps1 -SomenteNotebook",
+      "problemMatcher": []
+    }
+  ]
+}
